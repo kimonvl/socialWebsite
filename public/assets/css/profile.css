@@ -1,0 +1,185 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+}
+
+.profile-container {
+    max-width: 850px;
+    margin: 20px auto;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.cover-photo img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.profile-info {
+    padding: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.profile-pic img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid white;
+    position: absolute;
+    top: -75px;
+    left: 20px;
+}
+
+.profile-details {
+    flex-grow: 1;
+    padding-left: 200px;
+}
+
+.profile-details h1 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.profile-details p {
+    color: gray;
+    font-size: 16px;
+}
+
+.profile-nav {
+    margin-left: auto;
+}
+
+.profile-nav ul {
+    list-style-type: none;
+    display: flex;
+    gap: 15px;
+}
+
+.profile-nav ul li {
+    font-size: 16px;
+    color: gray;
+}
+
+.profile-nav ul li a {
+    color: #1877f2;
+    text-decoration: none;
+}
+
+/* Post Styles */
+.posts-section {
+    flex-grow: 1; /* Allows the posts section to take up remaining space */
+    overflow-y: auto; /* Enables scrolling */
+    max-height: 100%; /* Ensure it doesn't exceed container height */
+}
+
+.post {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.post-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.post-header .name {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+.post-header .time {
+    font-size: 12px;
+    color: #888;
+}
+
+.post-content {
+    font-size: 14px;
+    color: #555;
+}
+
+.like-button {
+    display: flex;
+    align-items: center;
+    background-color: #f0f2f5;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.post-footer {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.post-footer button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f0f2f5;
+    cursor: pointer;
+}
+
+.post-footer button:hover {
+    background-color: #e4e6eb;
+}
+
+.like-button:hover {
+    background-color: #e4e6eb;
+}
+
+.like-button i {
+    margin-right: 5px; /* Space between the icon and text */
+}
+
+/* Create Post Section */
+.create-post {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.create-post textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    resize: none;
+}
+
+.create-post button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #4267B2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
