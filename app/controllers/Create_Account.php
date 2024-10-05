@@ -22,7 +22,6 @@ class Create_Account
 			}
 			elseif($type == 'login')
 			{
-show($req->post_get());
 				$data = $this->login($req->post_get()); 
 			}
 		}
