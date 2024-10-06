@@ -48,7 +48,7 @@ class Pager
  		}
 
  		$first_link = preg_replace('/page=[0-9]+/', "page=1", $current_link);
- 		$next_link = preg_replace('/page=[0-9]+/', "page=".($page_number + $extras + 1), $current_link);
+ 		$next_link = preg_replace('/page=[0-9]+/', "page=".($page_number + $extras ), $current_link);
 
  		$this->links['first'] = $first_link;
  		$this->links['current'] = $current_link;

@@ -8,10 +8,10 @@ Trait Model
 {
 	use Database;
 
-	protected $limit = 10;
-	protected $offset = 0;
-	protected $order_column = 'id';
-	protected $order_type = 'desc';
+	public $limit = 10;
+	public $offset = 0;
+	public $order_column = 'id';
+	public $order_type = 'desc';
 	public $errors = [];
 
 	public function where($data = [], $data_not = [])
@@ -63,16 +63,6 @@ Trait Model
 		$data = $this->sanitizeColumns($data);
 		if(empty($data))
 			return false;
-
-		if(!empty($this->allowedColumns))
-		{
-			foreach ($data as $key => $value) {
-				if(!in_array($key, $this->allowedColumns))
-				{
-					unset($data[$key]);
-				}
-			}
-		}
 
 		$query = "insert into " . $this->table . " (";
 		foreach ($data as $key => $value) {

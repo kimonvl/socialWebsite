@@ -18,3 +18,4 @@ require 'Controller.php';
 require 'App.php';
 require 'Session.php';
 require 'Request.php';
+require 'Pager.php';

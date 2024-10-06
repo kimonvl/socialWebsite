@@ -32,8 +32,32 @@ class Ajax
 				unlink($user_row->image);
 
 			$user->update($user_row->id, ['image' => $destination]);
-			$info['success'] = true;
-			$info['message'] = "Profile image changed successfully";
+			$result['success'] = true;
+			$result['message'] = "Profile image changed successfully";
+		}
+
+		echo json_encode($result);
+	}
+
+	public function create_post()
+	{
+		$result = [];
+		$post = new \Model\Post;
+		$req = new \Core\Request;
+
+		if($post->validate($req->post_get('content')))
+		{
+			$post_data = [];
+			$post_data['userid'] = $req->post_get('user_id');
+			$post_data['content'] = $req->post_get('content');
+			$post_data['date'] = date("Y-m-d H:i:s");
+			$post->insert($post_data);
+			$result['success'] = true;
+			$result['message'] = 'post created successfully';
+		}else
+		{
+			$result['success'] = false;
+			$result['message'] = $post->errors['post'];
 		}
 
 		echo json_encode($result);
