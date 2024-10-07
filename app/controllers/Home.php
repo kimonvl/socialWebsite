@@ -13,7 +13,7 @@ class Home
 		$user = new \Model\User;
 		$post = new \Model\Post;
 		$ses = new \Core\Session;
-		$limit = 1;
+		$limit = 10;
 		$data['pager'] = new \Core\Pager($limit);
 		$offset = $data['pager']->offset;
 		if(!$ses->is_logged_in())
@@ -28,3 +28,8 @@ class Home
 		$this->view('home', $data);
 	}
 }
+
+/*
+To do : create post from home page
+
+*/

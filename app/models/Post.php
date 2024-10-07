@@ -14,8 +14,8 @@ class Post
 	public function validate($data)
 	{
 		$this->errors = [];
-		if(empty($data))
-			$this->errors['post'] = "Please write something to post";
+		if(empty($data['content']))
+			$this->errors['post'] = "Please provide content to post";
 
 		if (empty($this->errors))
 			return true;

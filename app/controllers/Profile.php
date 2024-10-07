@@ -13,7 +13,7 @@ class Profile
 		$ses = new \Core\Session;
 		$user = new \Model\User;
 		$post = new \Model\Post;
-		$limit = 1;
+		$limit = 10;
 		$data['pager'] = new \Core\Pager($limit);
 		$offset = $data['pager']->offset;
 		$post->limit = $limit;
@@ -23,6 +23,7 @@ class Profile
 
 		$post->limit = $limit;
 		$post->offset = $offset;
+
 		$id = empty($id) ? $ses->get_user('id') : $id;
 		$data['userRow'] = $user->first(['id' => $id]);
 		$data['posts'] = $post->where(['userid' => $id]);

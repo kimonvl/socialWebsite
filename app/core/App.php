@@ -20,6 +20,7 @@ class App
 		
 		//select controller
 		$filename = "../app/controllers/" . ucfirst($URL[0]) . ".php";
+
 		if(file_exists($filename))
 		{
 			require $filename;
@@ -37,8 +38,10 @@ class App
 		//select method
 		$c = '\Controller\\' . $this->controller;
 		$myController = new $c;
+
 		if(method_exists($myController, $this->method))
 		{
+
 			call_user_func_array([$myController, $this->method], $URL);
 		}else
 		{

@@ -44,10 +44,29 @@ class Ajax
 		$result = [];
 		$post = new \Model\Post;
 		$req = new \Core\Request;
+		$image_row = $req->files('image');
 
-		if($post->validate($req->post_get('content')))
+		if($post->validate(['content' => $req->post_get('content'), 'image' => $image_row]))
 		{
+
 			$post_data = [];
+			
+			if(!empty($image_row))
+			{
+				if($image_row['error'] == 0)
+				{
+					$folder = "uploads/";
+					if(!file_exists($folder))
+					{
+						mkdir($folder, 0777,true);
+					}
+					$destination = $folder . time() . $image_row['name'];
+					move_uploaded_file($image_row['tmp_name'], $destination);
+					$image_class = new \Model\Image;
+					$image_class->resize($destination, 1000);
+					$post_data['image'] = $destination;
+				}
+			}
 			$post_data['userid'] = $req->post_get('user_id');
 			$post_data['content'] = $req->post_get('content');
 			$post_data['date'] = date("Y-m-d H:i:s");

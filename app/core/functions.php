@@ -24,6 +24,12 @@ function check_extensions()
 	}
 }
 
+function current_user($key = '')
+{
+	$ses = new \Core\Session;
+	return $ses->get_user($key);
+}
+
 function show($data)
 {
 	echo "<pre>";

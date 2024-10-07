@@ -6,6 +6,7 @@
     <title>Facebook-like Profile Page</title>
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/profile.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <!-- Header Section -->
@@ -21,6 +22,7 @@
             <a href="#">Friends</a>
             <a href="#">Messages</a>
             <a href="#">Notifications</a>
+            <a href="<?=ROOT?>/logout">Logout</a>
             <a href="<?=ROOT?>/home">
                 Home
             </a>
@@ -58,6 +60,22 @@
                     change_image(file);
                 }
 
+                var post_image_file = null;
+
+                function display_post_image(file)
+                {
+                    let allowed = ['jpg', 'jpeg', 'png', 'webp'];
+                    let ext = file.name.split(".").pop();
+                    if(!allowed.includes(ext.toLowerCase()))
+                    {
+                        alert("Only files of these type allowed: " + allowed.toString(", "));
+                        return;
+                    }
+                    document.querySelector(".post-image").src = URL.createObjectURL(file);
+                    document.querySelector(".post-image").style.display = "";
+                    post_image_file = file;
+                }
+
                 function change_image(file)
                 {
                     var obj = {};
@@ -66,11 +84,13 @@
                     send_data(obj, "profile_image_change");
                 }
 
-                function upload_post()
+                function upload_post(event)
                 {
+                    event.preventDefault();
                     var obj = {};
                     obj.content = document.getElementById("postText").value;
                     obj.user_id = <?=$userRow->id?>;
+                    obj.image = post_image_file;
                     send_data(obj, "create_post");
                 }
 
@@ -97,8 +117,8 @@
 
                 function handle_result(result)
                 {
-                    let obj = JSON.parse(result);
-                    alert(obj.message);
+                    //let obj = JSON.parse(result);
+                    console.log(result);
                     location.reload();
                 }
             </script>
@@ -122,13 +142,19 @@
         <!-- News Feed -->
         <div class="feed-container">
             <!-- Create Post Section -->
-            <form method="post" onsubmit="upload_post()">
-                <div class="create-post">
-                    <textarea id="postText" placeholder="What's on your mind?" rows="3"></textarea>
-                    <button>Create Post</button>
-                </div>
-            </form>
-
+            <?php if($userRow->id == current_user('id')): ?>
+                <form method="post" onsubmit="upload_post(event)">
+                    <div class="create-post">
+                        <textarea id="postText" placeholder="What's on your mind?" rows="3"></textarea>
+                        <img style="display: block; width: 100%; max-height: 150px; display: none" src="" class="post-image">
+                        <button type="submit">Create Post</button>
+                        <label style="cursor: pointer;">
+                            <i style="margin-left: 10px; font-size: 20px; " class="fa fa-file"></i>              
+                            <input onchange="display_post_image(this.files[0])" type="file" name="" style="display:none;">
+                        </label>
+                    </div>
+                </form>
+            <?php endif; ?>
             <!-- Post Section -->
             <div class="posts-section">
                 <!-- Demo Posts -->

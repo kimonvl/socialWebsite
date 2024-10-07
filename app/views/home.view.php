@@ -21,7 +21,8 @@
             <a href="#">Friends</a>
             <a href="#">Messages</a>
             <a href="#">Notifications</a>
-            <a href="<?=ROOT?>/profile">
+            <a href="<?=ROOT?>/logout">Logout</a>
+            <a href="<?=ROOT?>/profile/index">
                 <?=$user_row->username?>
                 <img style="width: 30px; height: 30px; margin-left: 5px;" src="<?=get_image($user_row->image, 'user')?>">
             </a>
@@ -118,14 +119,14 @@
 
             <!-- Post Section -->
             <div class="posts-section">
-                
+
                 <!-- Demo Posts -->
                 <?php if(!empty($posts) && is_array($posts)):?>
                     <?php foreach($posts as $post):?>
                         <?=$this->view('post-small', ['post' => $post])?>
                     <?php endforeach;?>
                 <?php endif;?>
- <div><?php $pager->display()?></div>
+                <div><?php $pager->display()?></div>
             </div>
         </div>
     </div>
