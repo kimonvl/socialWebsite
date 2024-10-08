@@ -78,7 +78,56 @@ class Ajax
 			$result['success'] = false;
 			$result['message'] = $post->errors['post'];
 		}
+		echo json_encode($result);exit();
+	}
 
-		echo json_encode($result);
+	public function edit_post()
+	{
+		$result = [];
+		$post = new \Model\Post;
+		$req = new \Core\Request;
+		$image_row = $req->files('image');
+		$post_row = $post->where(['id' => $req->post_get('post_id')]);
+
+		if($post->validate(['content' => $req->post_get('content'), 'image' => $image_row]))
+		{
+
+			$post_data = [];
+			
+			if(!empty($image_row))
+			{
+				if($image_row['error'] == 0)
+				{
+					$folder = "uploads/";
+					if(!file_exists($folder))
+					{
+						mkdir($folder, 0777,true);
+					}
+					$destination = $folder . time() . $image_row['name'];
+					move_uploaded_file($image_row['tmp_name'], $destination);
+					$image_class = new \Model\Image;
+					$image_class->resize($destination, 1000);
+					$post_data['image'] = $destination;
+
+					if(!empty($post_row->image))
+					{
+						if(file_exists($post_row->image))
+							unlink($post_row->image);
+					}
+					
+				}
+			}
+			$post_data['userid'] = $req->post_get('user_id');
+			$post_data['content'] = $req->post_get('content');
+			$post_data['date'] = date("Y-m-d H:i:s");
+			$post->update($req->post_get('post_id'), $post_data, 'id');
+			$result['success'] = true;
+			$result['message'] = 'post updated successfully';
+		}else
+		{
+			$result['success'] = false;
+			$result['message'] = $post->errors['post'];
+		}
+		echo json_encode($result);exit();	
 	}
 }

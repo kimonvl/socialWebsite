@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/profile.css">
     <link rel="stylesheet" href="<?=ROOT?>/assets/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
 </head>
-<body>
+<body id="body">
+    <div style="display: none;" id="user_id_holder" data-value="<?=current_user('id')?>"></div>
     <!-- Header Section -->
     <div class="navbar">
         <div class="logo">
@@ -42,8 +44,9 @@
                 <div class="profile-pic">
                     <img class="profile-image" src="<?=get_image($userRow->image, "user")?>" alt="Profile Picture">
                 </div>
-                
-                <input onchange="display_image(this.files[0])" type="file" name="" style="display:none;">
+                <?php if($userRow->id == current_user('id')): ?>
+                    <input onchange="display_image(this.files[0])" type="file" name="" style="display:none;">
+                <?php endif; ?>
             </label>
 
             <script type="text/javascript">
@@ -61,6 +64,7 @@
                 }
 
                 var post_image_file = null;
+                const current_user_id = document.getElementById("user_id_holder").getAttribute("data-value");
 
                 function display_post_image(file)
                 {
@@ -80,7 +84,7 @@
                 {
                     var obj = {};
                     obj.image = file;
-                    obj.id = <?=$userRow->id?>;
+                    obj.id = current_user_id;
                     send_data(obj, "profile_image_change");
                 }
 
@@ -89,7 +93,7 @@
                     event.preventDefault();
                     var obj = {};
                     obj.content = document.getElementById("postText").value;
-                    obj.user_id = <?=$userRow->id?>;
+                    obj.user_id = current_user_id;
                     obj.image = post_image_file;
                     send_data(obj, "create_post");
                 }
@@ -117,8 +121,8 @@
 
                 function handle_result(result)
                 {
-                    //let obj = JSON.parse(result);
-                    console.log(result);
+                    let obj = JSON.parse(result);
+                    alert(obj.message);
                     location.reload();
                 }
             </script>
@@ -143,17 +147,7 @@
         <div class="feed-container">
             <!-- Create Post Section -->
             <?php if($userRow->id == current_user('id')): ?>
-                <form method="post" onsubmit="upload_post(event)">
-                    <div class="create-post">
-                        <textarea id="postText" placeholder="What's on your mind?" rows="3"></textarea>
-                        <img style="display: block; width: 100%; max-height: 150px; display: none" src="" class="post-image">
-                        <button type="submit">Create Post</button>
-                        <label style="cursor: pointer;">
-                            <i style="margin-left: 10px; font-size: 20px; " class="fa fa-file"></i>              
-                            <input onchange="display_post_image(this.files[0])" type="file" name="" style="display:none;">
-                        </label>
-                    </div>
-                </form>
+                <?=$this->view('create_post_form')?>
             <?php endif; ?>
             <!-- Post Section -->
             <div class="posts-section">
@@ -171,4 +165,5 @@
         </div>
     </div>
 </body>
+
 </html>
