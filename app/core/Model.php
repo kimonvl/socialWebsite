@@ -93,7 +93,7 @@ Trait Model
 		$query = trim($query, ", ");
 		$query .= " where " . $id_column . " = :" . $id_column_cond;
 		$data[$id_column_cond] = $id;
-		$this->query($query, $data);
+		return $this->query($query, $data);
 	}
 
 	public function delete($id, $id_column = 'id')

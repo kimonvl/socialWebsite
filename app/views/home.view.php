@@ -19,7 +19,7 @@
         </div>
         <div class="nav-links">
             <a href="#">Home</a>
-            <?=$this->view('drop_down_friend_request');?>
+            <?=$this->view('drop_down_friend_request', ['friend_requests' => $friend_requests]);?>
             <a href="#">Messages</a>
             <a href="#">Notifications</a>
             <a href="<?=ROOT?>/logout">Logout</a>
@@ -37,76 +37,11 @@
         <div class="sidebar">
             <h3>Friends</h3>
             <ul>
-                <li class="friend">
-                    <img src="https://via.placeholder.com/40" alt="Profile Picture">
-                    <div class="friend-info">
-                        <p class="name">John Doe</p>
-                        <span class="status online"></span>
-                    </div>
-                </li>
-                <li class="friend">
-                    <img src="https://via.placeholder.com/40" alt="Profile Picture">
-                    <div class="friend-info">
-                        <p class="name">Jane Smith</p>
-                        <span class="status offline"></span>
-                    </div>
-                </li>
-                <li class="friend">
-                    <img src="https://via.placeholder.com/40" alt="Profile Picture">
-                    <div class="friend-info">
-                        <p class="name">Robert Brown</p>
-                        <span class="status online"></span>
-                    </div>
-                </li>
-                <li class="friend">
-                    <img src="https://via.placeholder.com/40" alt="Profile Picture">
-                    <div class="friend-info">
-                        <p class="name">Emily Clark</p>
-                        <span class="status offline"></span>
-                    </div>
-                </li>
-                <li class="friend">
-                    <img src="https://via.placeholder.com/40" alt="Profile Picture">
-                    <div class="friend-info">
-                        <p class="name">Alice Johnson</p>
-                        <span class="status online"></span>
-                    </div>
-                </li>
-                <li class="friend">
-                    <img src="https://via.placeholder.com/40" alt="Profile Picture">
-                    <div class="friend-info">
-                        <p class="name">Michael White</p>
-                        <span class="status offline"></span>
-                    </div>
-                </li>
-                <li class="friend">
-                    <img src="https://via.placeholder.com/40" alt="Profile Picture">
-                    <div class="friend-info">
-                        <p class="name">Jessica Brown</p>
-                        <span class="status online"></span>
-                    </div>
-                </li>
-                <li class="friend">
-                    <img src="https://via.placeholder.com/40" alt="Profile Picture">
-                    <div class="friend-info">
-                        <p class="name">David Wilson</p>
-                        <span class="status offline"></span>
-                    </div>
-                </li>
-                <li class="friend">
-                    <img src="https://via.placeholder.com/40" alt="Profile Picture">
-                    <div class="friend-info">
-                        <p class="name">Sophia Lewis</p>
-                        <span class="status online"></span>
-                    </div>
-                </li>
-                <li class="friend">
-                    <img src="https://via.placeholder.com/40" alt="Profile Picture">
-                    <div class="friend-info">
-                        <p class="name">Daniel Martinez</p>
-                        <span class="status offline"></span>
-                    </div>
-                </li>
+                <?php if(!empty($friendships)): ?>
+                    <?php foreach($friendships as $friendship): ?>
+                        <?php $this->view("friend_li", ['friendship' => $friendship]); ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </ul>
         </div>
 

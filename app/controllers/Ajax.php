@@ -154,4 +154,39 @@ class Ajax
 		}
 		echo json_encode($result);
 	}
+
+	public function accept_request()
+	{
+		$req = new \Core\Request;
+		$ses = new \Core\Session;
+		$friend_request = new \Model\FriendRequest;
+		$friendship = new \Model\Friendship;
+
+		$data = [];
+		$result = [];
+
+		$data['senderid'] = $req->post_get('senderid');
+		$data['recieverid'] = $ses->get_user('id');
+
+		$request_row = $friend_request->first($data);
+
+		if($friend_request->update($request_row->id, ['accepted' => 1], 'id'))
+		{
+			if($friendship->insert(['userid' => $data['senderid'], 'friendid' => $data['recieverid'], 'date' => date("Y-m-d H:i:s")]))
+			{
+				$result['success'] = true;
+				$result['message'] = "Request accepted successfully";
+			}else
+			{
+				$result['success'] = false;
+				$result['message'] = "Failed to accept request";
+			}
+		}else
+		{
+			$result['success'] = false;
+			$result['message'] = "Failed to accept request";
+		}
+
+		echo json_encode($result);
+	}
 }

@@ -12,6 +12,29 @@ class User
 
 	protected $allowedColumns = ['id', 'username', 'email', 'password', 'image', 'date'];
 
+	public function addSenderUserToFriendReq($friendRequests)
+	{
+		if(empty($friendRequests) || !is_array($friendRequests))
+			return;
+		foreach ($friendRequests as $request) {
+			$request->sender = $this->get_row("select * from users where id = :id limit 1", ['id' => $request->senderid]);
+		}
+		return $friendRequests;
+	}
+
+	public function add_users_to_friendships($friendships, $user_id)
+	{
+		if(empty($friendships) || !is_array($friendships))
+			return;
+
+		foreach ($friendships as $friendship)
+		{
+			$friendship->friend = $friendship->userid == $user_id ? $this->first(['id' => $friendship->friendid]) : $this->first(['id' => $friendship->userid]);
+		}
+
+		return $friendships;
+	}
+
 	public function validate($data)
 	{
 		$this->errors = [];

@@ -96,41 +96,23 @@
   <button class="dropdown-btn" onclick="toggleDropdown()">Friend Requests</button>
   <ul class="dropdown-content" id="dropdownMenu">
     <!-- Repeat these list items as needed to test scrolling -->
-    <li>
-      <img src="https://via.placeholder.com/40" alt="Profile" class="profile-img">
-      <span class="profile-name">John Doe</span>
-      <button class="btn accept-btn">Accept</button>
-      <button class="btn decline-btn">Decline</button>
-    </li>
-    <li>
-      <img src="https://via.placeholder.com/40" alt="Profile" class="profile-img">
-      <span class="profile-name">Jane Smith</span>
-      <button class="btn accept-btn">Accept</button>
-      <button class="btn decline-btn">Decline</button>
-    </li>
-     <li>
-      <img src="https://via.placeholder.com/40" alt="Profile" class="profile-img">
-      <span class="profile-name">John Doe</span>
-      <button class="btn accept-btn">Accept</button>
-      <button class="btn decline-btn">Decline</button>
-    </li>
-     <li>
-      <img src="https://via.placeholder.com/40" alt="Profile" class="profile-img">
-      <span class="profile-name">John Doe</span>
-      <button class="btn accept-btn">Accept</button>
-      <button class="btn decline-btn">Decline</button>
-    </li>
-     <li>
-      <img src="https://via.placeholder.com/40" alt="Profile" class="profile-img">
-      <span class="profile-name">John Doe</span>
-      <button class="btn accept-btn">Accept</button>
-      <button class="btn decline-btn">Decline</button>
-    </li>
+    <?php if(!empty($friend_requests)): ?>
+      <?php foreach($friend_requests as $request): ?>
+        <?php $this->view("friend_request", ['request' => $request]); ?>
+      <?php endforeach; ?>
+    <?php endif; ?>
     <!-- Add more list items if needed -->
   </ul>
 </div>
 
 <script>
+  function accept_request(sid)
+  {
+    var obj = {};
+    obj.senderid = sid;
+    send_data(obj, "accept_request");
+  }
+
   // Function to toggle the visibility of the dropdown
   function toggleDropdown() {
     const dropdownMenu = document.getElementById("dropdownMenu");
