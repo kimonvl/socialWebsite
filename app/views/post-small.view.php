@@ -16,7 +16,9 @@
     <div class="post-footer">
         <button class="like-button"><i class="fas fa-heart"></i> Like</button>
         <button>Comment</button>
-        <a id="editPostRef" href="#myForm<?=$post->id?>"><button onclick="openForm('<?=$post->id?>'); displayInitialPostImageEdit('<?=$post->image?>', '<?=$post->id?>');">Edit</button></a>
+        <?php if($post->owner->id == current_user('id')): ?>
+            <a id="editPostRef" href="#myForm<?=$post->id?>"><button onclick="openForm('<?=$post->id?>'); displayInitialPostImageEdit('<?=$post->image?>', '<?=$post->id?>');">Edit</button></a>
+        <?php endif; ?>      
     </div>
 </div>
 

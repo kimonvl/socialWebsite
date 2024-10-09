@@ -19,7 +19,7 @@
         </div>
         <div class="nav-links">
             <a href="#">Home</a>
-            <a href="#">Friends</a>
+            <?=$this->view('drop_down_friend_request');?>
             <a href="#">Messages</a>
             <a href="#">Notifications</a>
             <a href="<?=ROOT?>/logout">Logout</a>

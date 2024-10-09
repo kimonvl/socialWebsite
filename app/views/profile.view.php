@@ -98,6 +98,14 @@
                     send_data(obj, "create_post");
                 }
 
+                function send_friend_request(senderid, recieverid)
+                {
+                    var obj = {};
+                    obj.senderid = senderid;
+                    obj.recieverid = recieverid;
+                    send_data(obj, "send_friend_request");
+                }
+
                 function send_data(obj, func)
                 {
                     var myform = new FormData();
@@ -138,7 +146,10 @@
                     
                     <li><a href="#about">About</a></li>
                     <li><a href="#photos">Photos</a></li>
-                    <li><button>Add Friend</button></li>
+                    <?php if($friend_req_button != "disabled"): ?>
+                       <li><button onclick="send_friend_request(<?=current_user('id')?>, <?=$userRow->id?>)"><?=$friend_req_button?></button></li> 
+                    <?php endif; ?>
+                    
                 </ul>
             </div>
         </div>

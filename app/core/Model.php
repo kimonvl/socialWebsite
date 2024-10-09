@@ -75,7 +75,7 @@ Trait Model
 		}
 		$query = trim($query, ", ");
 		$query .= ")";
-		$this->query($query, $data);
+		return $this->query($query, $data);
 	}
 
 	public function update($id, $data, $id_column = 'id')

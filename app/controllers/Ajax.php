@@ -128,6 +128,30 @@ class Ajax
 			$result['success'] = false;
 			$result['message'] = $post->errors['post'];
 		}
-		echo json_encode($result);exit();	
+		echo json_encode($result);	
+	}
+
+	public function send_friend_request()
+	{
+		$req = new \Core\Request;
+		$friendreq = new \Model\FriendRequest;
+
+		$data = [];
+		$data['senderid'] = $req->post_get('senderid');
+		$data['recieverid'] = $req->post_get('recieverid');
+		$data['accepted'] = 0;
+		$data['date'] = date("Y-m-d H:i:s");
+
+		$result = [];
+		if($friendreq->insert($data))
+		{
+			$result['success'] = true;
+			$result['message'] = "Request sent successfully";
+		}else
+		{
+			$result['success'] = false;
+			$result['message'] = "Request failed";
+		}
+		echo json_encode($result);
 	}
 }

@@ -27,7 +27,7 @@ Trait Database
 				return $result;
 			}
 		}
-		return false;
+		return $check;
 	}
 
 	public function get_row($query, $data = [])

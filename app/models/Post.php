@@ -9,7 +9,7 @@ class Post
 	use Model;
 
 	protected $table = 'posts';
-	protected $allowedColumns = ['image', 'userid', 'content', 'date'];
+	protected $allowedColumns = ['id', 'image', 'userid', 'content', 'date'];
 
 	public function validate($data)
 	{
