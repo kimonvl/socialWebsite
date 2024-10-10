@@ -32,15 +32,15 @@ class Create_Account
 	{
 		$user = new \Model\User;
 		if($user->validate($data))
-			{
-				$password = password_hash($data['password'], PASSWORD_DEFAULT);
-				$data['date'] = date("Y-m-d H:i:s");
-				$data['password'] = $password;
-				$user->insert($data);
-			}
+		{
+			$password = password_hash($data['password'], PASSWORD_DEFAULT);
+			$data['date'] = date("Y-m-d H:i:s");
+			$data['password'] = $password;
+			$user->insert($data);
+		}
 
-			$data['errors_signup'] = $user->errors;
-			return $data;
+		$data['errors_signup'] = $user->errors;
+		return $data;
 	}
 
 	private function login($data)

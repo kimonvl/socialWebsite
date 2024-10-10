@@ -31,7 +31,7 @@ class Home
 		$data['posts'] = $post->where();
 		$data['posts'] = $post->add_users_to_posts($data['posts']);
 
-		$frequests = $friendreq->where(['recieverid' => $ses->get_user('id')]);
+		$frequests = $friendreq->where(['recieverid' => $ses->get_user('id'), 'accepted' => 0]);
 		$data['friend_requests'] = $user->addSenderUserToFriendReq($frequests);
 
 		$friendships = $friendship->friends_of($ses->get_user('id'));

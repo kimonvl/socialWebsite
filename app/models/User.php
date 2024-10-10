@@ -48,7 +48,7 @@ class User
 		elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL))
 			$this->errors['email'] = "Invalid email";
 
-		if($this->where(['email' => $data['email']]))
+		if(is_array($this->where(['email' => $data['email']])))
 			$this->errors['email'] = "Email already in use";
 
 		if(empty($data['password']))

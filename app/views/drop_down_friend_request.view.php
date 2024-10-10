@@ -106,13 +106,6 @@
 </div>
 
 <script>
-  function accept_request(sid)
-  {
-    var obj = {};
-    obj.senderid = sid;
-    send_data(obj, "accept_request");
-  }
-
   // Function to toggle the visibility of the dropdown
   function toggleDropdown() {
     const dropdownMenu = document.getElementById("dropdownMenu");
