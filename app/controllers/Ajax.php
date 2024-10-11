@@ -161,6 +161,8 @@ class Ajax
 		$ses = new \Core\Session;
 		$friend_request = new \Model\FriendRequest;
 		$friendship = new \Model\Friendship;
+		$conv = new \Model\Conversation;
+		$grp_member = new \Model\GroupMember;
 
 		$data = [];
 		$result = [];
@@ -174,6 +176,14 @@ class Ajax
 		{
 			if($friendship->insert(['userid' => $data['senderid'], 'friendid' => $data['recieverid'], 'date' => date("Y-m-d H:i:s")]))
 			{
+				//create conversation between the 2 friends
+				$conv->insert(['name' => $data['senderid'] . "-" . $data['recieverid']]);
+				$conversation_id = $conv->first(['name' => $data['senderid'] . "-" . $data['recieverid']])->id;
+				//adding the first member of conversation
+				$grp_member->insert(['user_id' => $data['senderid'], 'conversation_id' => $conversation_id, 'joined_date' => date("Y-m-d H:i:s")]);
+				//adding the second member of conversation
+				$grp_member->insert(['user_id' => $data['recieverid'], 'conversation_id' => $conversation_id, 'joined_date' => date("Y-m-d H:i:s")]);
+
 				$result['success'] = true;
 				$result['message'] = "Request accepted successfully";
 			}else

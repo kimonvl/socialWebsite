@@ -8,6 +8,6 @@ class FriendRequest
 {
 	use Model;
 
-	protected $table = 'friendrequests';
+	protected $table = 'friendrequest';
 	protected $allowedColumns = ['id', 'senderid', 'recieverid', 'accepted', 'date'];
 }

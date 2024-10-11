@@ -14,6 +14,7 @@ class Home
 		$post = new \Model\Post;
 		$friendreq = new \Model\FriendRequest;
 		$friendship = new \Model\Friendship;
+		$grp_member = new \Model\GroupMember;
 		$ses = new \Core\Session;
 
 		$limit = 10;
@@ -34,8 +35,14 @@ class Home
 		$frequests = $friendreq->where(['recieverid' => $ses->get_user('id'), 'accepted' => 0]);
 		$data['friend_requests'] = $user->addSenderUserToFriendReq($frequests);
 
-		$friendships = $friendship->friends_of($ses->get_user('id'));
-		$data['friendships'] = $user ->add_users_to_friendships($friendships, $ses->get_user('id'));
+		//add conversations
+		$grp_member->order_column = 'user_id';
+		$convos = $grp_member->where(['user_id' => $ses->get_user('id')]);
+
+		$convos = $grp_member->addMembersToConversation($convos, $ses->get_user('id'));
+		$convos = $user->addUserToMembers($convos);
+
+		$data['conversations'] = $convos;
 
 		$this->view('home', $data);
 	}

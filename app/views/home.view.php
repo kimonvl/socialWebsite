@@ -37,9 +37,9 @@
         <div class="sidebar">
             <h3>Friends</h3>
             <ul>
-                <?php if(!empty($friendships)): ?>
-                    <?php foreach($friendships as $friendship): ?>
-                        <?php $this->view("friend_li", ['friendship' => $friendship]); ?>
+                <?php if(!empty($conversations)): ?>
+                    <?php foreach($conversations as $conversation): ?>
+                        <?php $this->view("friend_li", ['conversation' => $conversation]); ?>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </ul>

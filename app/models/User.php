@@ -35,6 +35,20 @@ class User
 		return $friendships;
 	}
 
+	public function addUserToMembers($conversations)
+	{
+		if(empty($conversations) || !is_array($conversations))
+			return;
+		foreach ($conversations as $conversation)
+		{
+			foreach ($conversation->members as $member)
+			{
+				$member->user = $this->first(['id' => $member->user_id]);
+			}
+		}
+		return $conversations;
+	}
+
 	public function validate($data)
 	{
 		$this->errors = [];
