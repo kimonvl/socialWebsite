@@ -1,4 +1,6 @@
+
 var post_image_file = null;
+var post_image_file_edit_p = null;
 const current_user_id = document.getElementById("user_id_holder").getAttribute("data-value");
 const root = "http://localhost/socialWebsite/public";
 
@@ -86,7 +88,7 @@ function displayAteredPostImageEdit(file, id)
     }
     document.getElementById("post-image-popup" + id).src = URL.createObjectURL(file);
     document.getElementById("post-image-popup" + id).style.display = "block";
-    post_image_file_edit = file;
+    post_image_file_edit_p = file;
 }
 
 function edit_post(event, id)
@@ -96,7 +98,7 @@ function edit_post(event, id)
     obj.post_id = id;
     obj.content = document.getElementById("postTextEdit" + id).value;
     obj.user_id = current_user_id;//from the div that holds the value of current logged in user
-    obj.image = post_image_file_edit;
+    obj.image = post_image_file_edit_p;
     send_data(obj, "edit_post");
 }
 
