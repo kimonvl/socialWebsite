@@ -67,37 +67,30 @@
     <!-- Chat Window (Demo) -->
     <div class="chat-window">
         <div class="chat-header">
-            <p>Chat with Friends</p>
+            <p id="chatName">Chat with Friends</p>
             <span class="close-chat" onclick="document.querySelector('.chat-window').style.display='none'">X</span>
         </div>
         <div class="chat-body">
-            <div class="message received">
-                <p>Hi! How are you?</p>
-            </div>
-            <div class="message received">
-                <p>Hi! How are you?</p>
-            </div>
-            <div class="message received">
-                <p>Hi! How are you?</p>
-            </div>
+
+            <?php $this->view('chat-bubble') ?>
+
+            <?php $this->view('chat-bubble') ?>
+            
             <div class="message sent">
                 <p>I'm good, thanks! You?</p>
             </div>
-            <div class="message received">
-                <p>Doing well! Just catching up on some work.</p>
-            </div>
+            <?php $this->view('chat-bubble') ?>
             <div class="message sent">
                 <p>Nice! Let me know if you need any help.</p>
             </div>
-            <div class="message received">
-                <p>Will do! Thanks!</p>
-            </div>
+            <?php $this->view('chat-bubble') ?>
         </div>
         <div class="chat-footer">
             <input type="text" placeholder="Type a message...">
             <button>Send</button>
         </div>
     </div>
+
     <script src="<?=ROOT?>/assets/js/home.js"></script>
 </body>
 </html>

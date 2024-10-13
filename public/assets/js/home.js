@@ -102,6 +102,12 @@ function accept_request(sid)
     send_data(obj, "accept_request");
 }
 
+function open_chat_window(chatName)
+{
+    document.querySelector('.chat-window').style.display= 'flex';
+    document.getElementById('chatName').innerHTML = chatName;
+}
+
 function send_data(obj, func)
 {
     var myform = new FormData();

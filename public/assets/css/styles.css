@@ -202,9 +202,9 @@ body {
     background-color: white;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    display: flex;
     flex-direction: column;
     max-height: 400px; /* Added max height for the chat window */
+    display: none;
 }
 
 .chat-header {
@@ -249,7 +249,7 @@ body {
 
 .message.sent {
     background-color: #d2e5ff;
-    align-self: flex-end;
+    margin-left: auto;
 }
 
 .chat-footer {
@@ -309,4 +309,46 @@ body {
 
 .like-button i {
     margin-right: 5px; /* Space between the icon and text */
+}
+
+/* Container for the chat message */
+.chat-bubble-container {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    max-width: 300px;
+}
+
+/* User profile image */
+.chat-bubble-user-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Chat bubble style */
+.chat-bubble {
+    background-color: #e5e5ea;
+    padding: 10px 15px;
+    border-radius: 18px;
+    font-size: 14px;
+    color: #000;
+    position: relative;
+    max-width: 80%;
+}
+
+/* Tail of the chat bubble */
+.chat-bubble::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: -8px;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+    border-top-color: #e5e5ea;
+    border-bottom: 0;
+    margin-left: 1px;
+    margin-bottom: -8px;
 }
