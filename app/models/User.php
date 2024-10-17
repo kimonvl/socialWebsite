@@ -2,7 +2,7 @@
 
 namespace Model;
 
-defined('ROOTPATH') OR exit("Access denied!");
+defined('ROOTPATH') OR defined('SERVERPATH') OR exit("Access denied!");
 
 class User
 {
@@ -47,6 +47,18 @@ class User
 			}
 		}
 		return $conversations;
+	}
+
+	public function addUserToMessages($messages)
+	{
+		if(empty($messages) || !is_array($messages))
+			return;
+		foreach ($messages as $message)
+		{
+			$message->user = $this->first(['id' => $message->sender_id]);
+			$message->user->image = get_image($message->user->image, "user");
+		}
+		return $messages;
 	}
 
 	public function validate($data)

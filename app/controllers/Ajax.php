@@ -199,4 +199,17 @@ class Ajax
 
 		echo json_encode($result);
 	}
+
+	public function load_chat_messages($convID)
+	{
+		$message = new \Model\Message;
+		$user = new \Model\User;
+		$messages = $message->where(['conversation_id' => $convID]);
+		$messages = $user->addUserToMessages($messages);
+		$result = [];
+		$result['messages'] = $messages;
+		$result['action'] = "print_messages";
+
+		echo json_encode($result);
+	}
 }

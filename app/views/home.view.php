@@ -62,35 +62,25 @@
                 <div><?php $pager->display()?></div>
             </div>
         </div>
-    </div>
 
-    <!-- Chat Window (Demo) -->
-    <div class="chat-window">
-        <div class="chat-header">
-            <p id="chatName">Chat with Friends</p>
-            <span class="close-chat" onclick="document.querySelector('.chat-window').style.display='none'">X</span>
-        </div>
-        <div class="chat-body">
-
-            <?php $this->view('chat-bubble') ?>
-
-            <?php $this->view('chat-bubble') ?>
-            
-            <div class="message sent">
-                <p>I'm good, thanks! You?</p>
+        <!-- Chat Window (Demo) -->
+        <div style="display:none;" id="conversation_id_chat"></div>
+        <div style="display:none;" id="sender_id_chat"></div>
+        <div style="display:none;" id="sender_profile_image_chat"></div>
+        <div class="chat-window">
+            <div class="chat-header" id="chthdr">
+                Chat
             </div>
-            <?php $this->view('chat-bubble') ?>
-            <div class="message sent">
-                <p>Nice! Let me know if you need any help.</p>
+
+            <div class="chat-body" id="chatBody">
+        
             </div>
-            <?php $this->view('chat-bubble') ?>
-        </div>
-        <div class="chat-footer">
-            <input type="text" placeholder="Type a message...">
-            <button>Send</button>
+            <div class="chat-input">
+                <input id="chat_message_input" type="text" placeholder="Type a message...">
+                <button onclick="send_message()">Send</button>
+            </div>
         </div>
     </div>
-
     <script src="<?=ROOT?>/assets/js/home.js"></script>
 </body>
 </html>

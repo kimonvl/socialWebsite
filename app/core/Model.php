@@ -2,7 +2,7 @@
 
 namespace Model;
 
-defined('ROOTPATH') OR exit("Access denied!");
+defined('ROOTPATH') OR defined('SERVERPATH') OR exit("Access denied!");
 
 Trait Model
 {

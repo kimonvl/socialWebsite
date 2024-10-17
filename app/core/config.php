@@ -1,12 +1,9 @@
 <?php
 
-defined('ROOTPATH') OR exit("Access denied!");
+defined('ROOTPATH') OR defined("SERVERPATH") OR exit("Access denied!");
 
-define("ROOT", "http://localhost/socialWebsite/public");
-define("DBNAME", "socialwebsite_db");
-define("DBHOST", "localhost");
-define("DBUSER", "root");
-define("DBPASS", "mysql");
-
-define('APP_NAME', "");
-define("APP_DESC", "");
+defined("ROOT") OR define("ROOT", "http://localhost/socialWebsite/public");
+defined("DBNAME") OR define("DBNAME", "socialwebsite_db");
+defined("DBHOST") OR define("DBHOST", "localhost");
+defined("DBUSER") OR define("DBUSER", "root");
+defined("DBPASS") OR define("DBPASS", "mysql");

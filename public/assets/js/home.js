@@ -2,6 +2,39 @@ var post_image_file_edit = null;
 var post_id_holder = document.getElementById("post_id_holder").getAttribute("data-value");
 const root = "http://localhost/socialWebsite/public";
 
+/*
+TODO: message disapear from input after sent, append sent messages to chatbody when press send botton
+*/
+
+var conn = new WebSocket('ws://localhost:8080');
+conn.onopen = function(e) {
+    var data = {};
+    data.user_id = document.getElementById("user_id_holder").getAttribute('data-value');
+    data.type = "new_conn";
+    conn.send(JSON.stringify(data));
+};
+
+conn.onmessage = function(e) {
+    let msg = JSON.parse(e.data);
+    console.log(msg);
+    let chat = document.getElementById("chatBody");
+    let sender_image = document.getElementById("sender_profile_image_chat").innerHTML;     
+    htmlData = '<div class="chat-message received"><div class="profile-img"><img src="' + root + "/" + msg.sender_image + '"></div><div class="message-bubble">' + msg.message + '</div></div>';
+    chat.insertAdjacentHTML("beforeend", htmlData);
+};
+
+function send_message()
+{
+    var data = {};
+
+    data.conversation_id = document.getElementById('conversation_id_chat').innerHTML;
+    data.sender_id = document.getElementById('sender_id_chat').innerHTML;
+    data.message = document.getElementById('chat_message_input').value;
+    data.type = "new_message";
+
+    conn.send(JSON.stringify(data));
+}
+
 function openForm(id)
 {
     document.getElementById("myForm" + id).style.display = "block";
@@ -102,10 +135,18 @@ function accept_request(sid)
     send_data(obj, "accept_request");
 }
 
-function open_chat_window(chatName)
+function open_chat_window(chatName, conversation_id, sender_id)
 {
     document.querySelector('.chat-window').style.display= 'flex';
-    document.getElementById('chatName').innerHTML = chatName;
+    document.getElementById('chthdr').innerHTML = chatName;
+    document.getElementById('conversation_id_chat').innerHTML = conversation_id;
+    document.getElementById('sender_id_chat').innerHTML = sender_id;
+}
+
+function load_chat_messages(convID)
+{
+    var obj = {};
+    send_data(obj, "load_chat_messages/" + convID);
 }
 
 function send_data(obj, func)
@@ -132,6 +173,32 @@ function send_data(obj, func)
 function handle_result(result)
 {
     let obj = JSON.parse(result);
-    alert(obj.message);
+    if(Object.hasOwn(obj, 'action'))
+    {
+        if(obj.action == "print_messages")
+        {
+            print_messages(obj.messages);
+            return;
+        }
+    }
     location.reload();
+}
+
+
+function print_messages(messages)
+{
+    let chat = document.getElementById("chatBody");
+      
+    for (const message of messages) {
+        if(message.sender_id == current_user_id)
+        {
+            htmlData = '<div class="chat-message sent"><div class="message-bubble">' + message.message_text + '</div></div>';
+            chat.insertAdjacentHTML("afterbegin", htmlData);
+        }else
+        {
+            htmlData = '<div class="chat-message received"><div class="profile-img"><img src="' + message.user.image + '"></div><div class="message-bubble">' + message.message_text + '</div></div>';
+            chat.insertAdjacentHTML("afterbegin", htmlData);
+        }
+    }
+    
 }

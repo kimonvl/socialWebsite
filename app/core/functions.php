@@ -1,6 +1,6 @@
 <?php
 
-defined('ROOTPATH') OR exit("Access denied!");
+defined('ROOTPATH') OR defined('SERVERPATH') OR exit("Access denied!");
 
 check_extensions();
 
