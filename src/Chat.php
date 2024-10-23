@@ -35,7 +35,7 @@ class Chat implements MessageComponentInterface {
                 $this->clients->attach($from);
                 break;
             case 'new_message':
-                $this->process_new_message($data_obj);
+                $this->process_new_message($data_obj, $from);
                 break;
             
             default:
@@ -57,7 +57,7 @@ class Chat implements MessageComponentInterface {
         $conn->close();
     }
 
-    private function process_new_message($msg)
+    private function process_new_message($msg, $from)
     {
         $grp_member = new \Model\GroupMember;
         $user = new \Model\User;
@@ -73,6 +73,7 @@ class Chat implements MessageComponentInterface {
                 {   
                     print_r("message sent to " . $member->user_id);
                     $msg->sender_image = $user->first(['id' => $msg->sender_id])->image;
+                    $msg->type = "message_income";
                     $client->send(json_encode($msg, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
                 }
             }
@@ -85,6 +86,17 @@ class Chat implements MessageComponentInterface {
         $data['date'] = date("Y-m-d H:i:s");
         $data['conversation_id'] = $msg->conversation_id;
         $data['sender_id'] = $msg->sender_id;
-        $message->insert($data);
+        if($message->insert($data))
+        {
+            $myObj->type = "message_saved";
+            $myObj->success = true;
+            $myObj->message_text = $msg->message;
+            $from->send(json_encode($myObj, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+        }else
+        {
+            $myObj->type = "message_saved";
+            $myObj->success = false;
+            $from->send(json_encode($myObj, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+        }
     }
 }

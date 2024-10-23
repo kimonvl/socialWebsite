@@ -212,4 +212,19 @@ class Ajax
 
 		echo json_encode($result);
 	}
+
+	public function search_profile()
+	{
+		$req = new \Core\Request;
+		$user = new \Model\User;
+
+		$query = "select * from users where username like :needle ";
+		$matches = $user->query($query, ['needle' => '%' . $req->post_get('search_text') . '%']);
+
+		$result = [];
+		$result['matches'] = $matches;
+		$result['action'] = "print_profile_search_results";
+
+		echo json_encode($result);
+	}
 }

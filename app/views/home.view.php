@@ -9,13 +9,18 @@
 </head>
 <body>
 <div style="display: none;" id="user_id_holder" data-value="<?=current_user('id')?>"></div>
+
     <!-- Header Section -->
     <div class="navbar">
         <div class="logo">
             <h1>Facebook</h1>
         </div>
         <div class="search-bar">
-            <input type="text" placeholder="Search Facebook">
+            <input type="text" placeholder="Search Facebook" id="profile_search_input">
+            <button onclick="search_profile();" style="background-color: gray;">Search</button>
+            <div class="dropdown-search" id="dropdown-search">
+                <!-- Profiles will be dynamically loaded here -->
+            </div>
         </div>
         <div class="nav-links">
             <a href="#">Home</a>
@@ -31,6 +36,7 @@
         </div>
     </div>
 
+    
     <!-- Main Content Layout -->
     <div class="main-content">
         <!-- Friends List Sidebar -->
@@ -45,8 +51,11 @@
             </ul>
         </div>
 
+
+
         <!-- News Feed -->
         <div class="feed-container">
+
             <!-- Create Post Section -->
             <?=$this->view('create_post_form')?>
 
@@ -68,10 +77,14 @@
         <div style="display:none;" id="sender_id_chat"></div>
         <div style="display:none;" id="sender_profile_image_chat"></div>
         <div class="chat-window">
-            <div class="chat-header" id="chthdr">
-                Chat
+            
+            <div style="display: flex;">
+                
+                <div style="width: 90%;" class="chat-header" id="chthdr">
+                    Chat
+                </div>
+                <button onclick="close_chat();" style="background-color: red; width: 10%;">X</button>
             </div>
-
             <div class="chat-body" id="chatBody">
         
             </div>
